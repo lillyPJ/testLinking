@@ -2,7 +2,7 @@
 % test_bb: x, y, w, h
 % test_poly: x1, y1, x2, y2, x3, y3, x4, y4
 %% dir and files
-TYPE = 'boxChineseWord';
+TYPE = 'boxEnglishWord';
 CASE = 'test';
 destBase = '.';
 testBase = fullfile('/home/lili/datasets/MSRATD500');
@@ -16,9 +16,9 @@ nFile = numel(files);
 
 for i = 1:nFile
     gtFilesRawName = files(i).name;
-%     if i < 26
-%         continue;
-%     end
+    if i < 24
+        continue;
+    end
     sourceTestFile = fullfile(sourceDir, gtFilesRawName);
     fprintf('%d:%s\n', i, sourceTestFile);
     imgFileName = fullfile(imgDir, [gtFilesRawName(1:end-3), 'jpg']);
@@ -64,7 +64,8 @@ for i = 1:nFile
         box(:,4) = box(:,4) - box(:,2);
         
         %charWords = boxMerge(box, image);
-        charWords = boxMergeChinese(box);
+        %charWords = boxMergeChinese(box);
+        charWords = boxMergeEnglish(box);
         %charWords = mySelectGroup(box);
         nWord = length(charWords);
         % get poly
