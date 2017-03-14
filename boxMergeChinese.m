@@ -20,13 +20,13 @@ params.TYDIF = 3;
 %% output and show test
 %imshow( image );
 word = [multiWord1, word2];
-nWord = length( word );
-for i = 1:nWord
-    angle = myPolyFit(word(i).charbox);
-    %displayBox(word(i).wordbox, 'y');
-    angleBox = getPolyFromBox(word(i).wordbox, angle);
-    displayAngleBox(angleBox);
-end
+% nWord = length( word );
+% for i = 1:nWord
+%     angle = myPolyFit(word(i).charbox);
+%     %displayBox(word(i).wordbox, 'y');
+%     angleBox = getPolyFromBox(word(i).wordbox, angle);
+%     displayAngleBox(angleBox);
+% end
 end
 
 

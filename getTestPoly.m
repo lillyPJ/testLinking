@@ -2,13 +2,15 @@
 % test_bb: x, y, w, h
 % test_poly: x1, y1, x2, y2, x3, y3, x4, y4
 %% dir and files
-TYPE = 'boxChineseWord';
+TYPE = 'boxWord';
 CASE = 'test';
 destBase = '.';
 testBase = fullfile('/home/lili/datasets/MSRATD500');
 sourceDir = fullfile(testBase, 'gt', CASE, 'txt', TYPE);
 imgDir = fullfile(testBase, 'img', CASE);
 destDir = fullfile(destBase, TYPE);
+destFigDir = fullfile(destBase, 'fig', TYPE);
+mkdir(destFigDir);
 mkdir(destDir);
 %% process each file
 files = dir(fullfile(sourceDir, '*.txt'));
@@ -16,22 +18,22 @@ nFile = numel(files);
 
 for i = 1:nFile
     gtFilesRawName = files(i).name;
-    %     if i < 0
-    %         continue;
-    %     end
+%         if i < 20
+%             continue;
+%         end
     sourceTestFile = fullfile(sourceDir, gtFilesRawName);
     fprintf('%d:%s\n', i, sourceTestFile);
     imgFileName = fullfile(imgDir, [gtFilesRawName(1:end-3), 'jpg']);
     image = imread(imgFileName);
     
-    destTestFile = fullfile(destDir, gtFilesRawName);
+    destTestFile = fullfile(destDir, ['res_', gtFilesRawName]);
     % load test box
-    box = loadGTFromTxtFile(sourceTestFile);
+    [box, tag] = loadGTFromTxtFile(sourceTestFile);
     
-    cla;
+    
     %axis ij
-    imshow(image);
-    %displayBoxV2(box);
+%     imshow(image);
+%     displayBoxV2(box);
     
     [imgH, imgW, D] = size(image);
     %axis([0, imgW, 0, imgH]);
@@ -64,27 +66,44 @@ for i = 1:nFile
         box(:,4) = box(:,4) - box(:,2);
         
         %charWords = boxMerge(box, image);
-        word = boxMergeChinese(box);
+        tagChar = cell2mat(tag);
+        idxEnglish = (tagChar == '1');
+        idxChinese = (tagChar == '2');
+        boxEnglish = box(idxEnglish, :);
+        boxChinese = box(idxChinese, :);
+        [wordEnglish, boxCh] =  boxMergeEnglish(boxEnglish);
+        boxChinese = [boxChinese; boxCh];
+        wordChinese =  boxMergeChinese(boxChinese);
+        word = [wordEnglish, wordChinese];
+        %word = boxMergeChinese(box);
         %word = boxMergeEnglish(box);
         %charWords = mySelectGroup(box);
         nWord = length( word );
-        for i = 1:nWord
-            [angle, error] = myPolyFit(word(i).charbox);
-            displayBox(word(i).wordbox, 'b');
-            displayBox(word(i).charbox, 'g');
-            angleBox = getPolyFromBox(word(i).wordbox, angle);
-            displayAngleBox(angleBox, 'm');
+        angleBoxes = zeros(nWord, 5);
+        for j = 1:nWord
+            [angle, error] = myPolyFit(word(j).charbox);
+            %displayBox(word(i).wordbox, 'b');
+            %displayBox(word(i).charbox, 'g');
+            angleBox = getPolyFromBox(word(j).wordbox, angle);
+            %angleBox = adjustBoxPercent(angleBox, [0.005, 0.1]);
+            angleBoxes(j, :) = angleBox;
+            
+            %displayAngleBox(angleBox, 'm');
         end
+        polys = round(fromAngleBoxToPoly(angleBoxes));
     end
+    
+    %saveas(gcf, fullfile(destFigDir, [gtFilesRawName(1:end-3), 'jpg']));
     %show
-    %     imshow(image);
-    %     displayPoly(polys);
+  
+%         imshow(image);
+%         displayPoly(polys);
     % write to destTestFile
-    %     fp = fopen(destTestFile, 'wt');
-    %     nPoly = size(polys, 1);
-    %     for j = 1:nPoly
-    %         fprintf(fp, '%d, %d, %d, %d, %d, %d, %d, %d\n', polys(j,:));
-    %     end
-    %     fclose(fp);
+        fp = fopen(destTestFile, 'wt');
+        nPoly = size(polys, 1);
+        for j = 1:nPoly
+            fprintf(fp, '%d, %d, %d, %d, %d, %d, %d, %d\n', polys(j,:));
+        end
+        fclose(fp);
 end
 

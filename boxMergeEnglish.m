@@ -1,9 +1,10 @@
-function word = boxMergeEnglish(charbox)
+function [word, boxChinese] = boxMergeEnglish(charbox)
 %%boundbox:为窗口集合；img:为彩色图；
 %boxes[x,y,w,h]
 %boxes[x,y,w,h,xcenter,ycenter,area,color]
 if isempty( charbox )
     word = [];
+    boxChinese = [];
     return;
 end
 %% =======================horizontal===================
@@ -22,7 +23,19 @@ params.TDIS = 300;
 params.TXDIFMIN  = 0.2;
 [word2, multiWord2, singleChar] = mergeWords(singleChar, params);
 %% output and show test
-
+nSingleChar = size(singleChar, 1); 
+words3 = multiWord2;
+boxChinese = [];
+for i = 1:nSingleChar
+    if singleChar(i, 3)/singleChar(i, 4) > 1.5
+        singleW.nChar = 1;
+        singleW.charbox = singleChar(i, :);
+        singleW.wordbox = singleChar(i, :);
+        words3 = [words3, singleW];
+    else
+        boxChinese = [boxChinese; singleChar(i,:)];
+    end
+end
 %% =======================merge textline===================
 % params.THeightRatio = 3;%高度比 % = 2.1, 52.6/// = 2.1 use to the textLine method
 % params.TXDIF = 1.3;%水平间距 % =2 , 62.5/// =3 use to the textLine method
@@ -52,7 +65,7 @@ params.TXDIFMIN  = 0.2;
 % end
 
 %imshow( image );
-word = [word1, word2];
+word = [word1, words3];
 % nWord = length( word );
 % for i = 1:nWord
 %     [angle, error] = myPolyFit(word(i).charbox);
