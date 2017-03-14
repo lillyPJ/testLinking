@@ -10,19 +10,17 @@ end
 params.THeightRatio = 3;%高度比 % = 2.1, 52.6/// = 2.1 use to the textLine method
 params.TXDIF = 1.3;%水平间距 % =2 , 62.5/// =3 use to the textLine method
 params.TYDIF = 0.75;%垂直间距
-params.TDIS = 100;
-params.TXDIFMIN  = 0.2;
-[wordTemp, multiWord1, singleChar] = mergeWords(charbox, params);
-word1 = refineWord(multiWord1);
+params.TDIS = 40;
+params.TXDIFMIN  = 0.45;
+[word1, multiWord1, singleChar] = mergeWords(charbox, params);
 %% =======================single char:vertical===================
-params.THeightRatio = 5;
-params.TXDIF = 0.3;
-params.TYDIF = 5;
-params.TDIS = 300;
-params.TXDIFMIN  = 0.2;
-[word2, multiWord2, singleChar] = mergeWords(singleChar, params);
+% params.THeightRatio = 1.5;
+% params.TXDIF = 5;
+% params.TYDIF = 3;
+% %displayBox(singleChar, 'b');
+% [word2, multiWord, singleChar] = mergeWords(singleChar, params);
 %% output and show test
-
+word = refineWord(word1);
 %% =======================merge textline===================
 % params.THeightRatio = 3;%高度比 % = 2.1, 52.6/// = 2.1 use to the textLine method
 % params.TXDIF = 1.3;%水平间距 % =2 , 62.5/// =3 use to the textLine method
@@ -52,15 +50,14 @@ params.TXDIFMIN  = 0.2;
 % end
 
 %imshow( image );
-word = [word1, word2];
-% nWord = length( word );
-% for i = 1:nWord
-%     [angle, error] = myPolyFit(word(i).charbox);
-%     displayBox(word(i).wordbox, 'b');
-%     displayBox(word(i).charbox, 'g');
-%     angleBox = getPolyFromBox(word(i).wordbox, angle);
-%     displayAngleBox(angleBox, 'm');
-% end
+nWord = length( word );
+for i = 1:nWord
+    [angle, error] = myPolyFit(word(i).charbox);
+    displayBox(word(i).wordbox, 'b');
+    displayBox(word(i).charbox, 'g');
+    angleBox = getPolyFromBox(word(i).wordbox, angle);
+    displayAngleBox(angleBox, 'm');
+end
 end
 
 
@@ -105,8 +102,8 @@ if nargin < 2
     THeightRatio = 1.8;%高度比 % = 2.1, 52.6/// = 2.1 use to the textLine method
     TXDIF = 2;%水平间距 % =2 , 62.5/// =3 use to the textLine method
     TYDIF = 0.8;%垂直间距
-    TDIS = 100;
-    TXDIFMIN  = 0.25;
+    TDIS = 40;
+    TXDIFMIN  = 0.45;
 else
     THeightRatio = params.THeightRatio;%高度比 % = 2.1, 52.6/// = 2.1 use to the textLine method
     TXDIF = params.TXDIF;%水平间距 % =2 , 62.5/// =3 use to the textLine method
@@ -145,7 +142,6 @@ for i = 1:nbox-1
     hi = boxes(i,4);
     xiCenter = boxes(i,5);
     yiCenter = boxes(i,6);
-    hwi = hi/wi;
     
     for j = i+1:nbox
         xj1 = boxes(j,1);
@@ -154,14 +150,13 @@ for i = 1:nbox-1
         hj = boxes(j,4);
         xjCenter = boxes(j,5);
         yjCenter = boxes(j,6);
-        hwj = hj/wj;
-       
+        
         disX = min(abs(xi1 - xj2), abs(xj1 - xi2));
         if ( (1/THeightRatio < (hi/hj) && (hi/hj) < THeightRatio) && ... 
                 ( abs(xiCenter-xjCenter) < TXDIF*max(wi,wj)) &&...
                 ( abs(yiCenter-yjCenter) < TYDIF*max(hi,hj)) && ...
-                abs(xiCenter-xjCenter) > TXDIFMIN*max(wi,wj)/max(hwi,hwj) && ...
-                disX < TDIS) ...) % different!
+                abs(xiCenter-xjCenter) > TXDIFMIN*max(wi,wj) && ...
+                disX < 100) ...) % different!
             if xi1<= xj1
                 right_num_1 = size(char(i).right,2);
                 left_num_2 = size(char(j).left,2);
@@ -226,4 +221,85 @@ end
 if isempty( word )
     return;
 end
+end
+
+function [newWord, newLine] = mergeTextline ( word, textLine )
+newLine = [];
+newWord = [];
+% textLine = removeContainBox ( textLine );
+nLine = size( textLine, 1);
+if nLine < 1
+    return;
+end
+%% paras
+MINIDIS = 1/2;
+MINXGAP = 2;
+%%
+box = textLine;
+box(:, 5) = box(:, 2) + box(:, 4);% box(5)-down, box(6)-ycenter
+box(:, 6) = ( box(:, 2) + box(:, 5) )/2;
+
+% sort according to the ycenter
+[box, sortIdx] = sortrows( box, 6);
+word = word( sortIdx );
+xcenter = floor (box(: ,1) + box(:, 3) /2 );
+% calculate the seg
+upRow = [box(:, 6); 0];
+downRow = [ 0; box(:,6)];
+gapTemp = upRow - downRow;
+gap = gapTemp(2: end-1);
+crossIdx = find( gap < 50 );
+nCross = length( crossIdx );
+if nCross < 1   
+    newLine = box(:, 1:4);
+    newWord = word;
+    return;
+end
+mergeSet = [];
+for i =1: nCross
+    maxW = max( box( crossIdx(i), 3 ), box( crossIdx(i) + 1, 3 ) );
+    maxH = max( box( crossIdx(i), 4 ), box( crossIdx(i) + 1, 4 ) );
+    upGap = abs( box( crossIdx(i), 2 ) - box( crossIdx(i) + 1, 2 ) ) /maxH;
+    downGap = abs( box( crossIdx(i), 5 ) - box( crossIdx(i) + 1, 5 ) ) /maxH;
+    xcenterGap = abs( xcenter(crossIdx(i)) - xcenter(crossIdx(i) + 1) )  / maxW ;
+    if(  upGap < MINIDIS && downGap < MINIDIS  && xcenterGap < MINXGAP )
+        % crossIdx(i) and crossIdx(i) + 1 need to be merged
+        mergeSet = [mergeSet; crossIdx(i), crossIdx(i) + 1 ];
+      end
+end
+if isempty( mergeSet )
+    newLine = box(:, 1:4);
+    newWord = word;
+    return;
+end
+crossSetIdx = unique( mergeSet(:) );
+if size( crossSetIdx, 1) > 1
+    crossSetIdx = crossSetIdx';
+end
+% add the normal box
+restIdx = setdiff( [1:nLine], crossSetIdx );
+newLine = [newLine; box( restIdx, 1:4) ];
+newWord = [newWord; word(restIdx)];
+% add the merge box
+mergeSetCell = num2cell( mergeSet, 2);
+newMergeSetCell = unionSet( mergeSetCell, 0 );
+nMerge = size( newMergeSetCell, 1); 
+for i = 1:nMerge
+    idx = newMergeSetCell{i};
+    boxes = box( idx,: );
+    newLine = [newLine; mmbox( boxes )];
+    charBoxes = [];
+    for k = idx
+        charBoxes = [charBoxes; word(k).charbox];
+    end
+    newTemp.charbox = charBoxes;
+    newTemp.nChar = size(charBoxes, 1);
+    newTemp.wordbox = mmbox( charBoxes );
+    newWord = [newWord, newTemp];
+end
+assert( size(newLine,1) == length( newWord ) );
+% imshow( image );
+% displayBox( textLine );
+% displayBox( newLine, 'b' );
+% disp('ok');
 end
