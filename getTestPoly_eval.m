@@ -1,13 +1,16 @@
 % change test_bb to test_poly
 % test_bb: x, y, w, h
 % test_poly: x1, y1, x2, y2, x3, y3, x4, y4
-DISPLAY = 1;
+clear all
+DISPLAY = 0;
+addpath('/home/lili/codes/evaluationPoly');
 %% dir and files
 TYPE = 'boxWord';
 CASE = 'test';
 destBase = '.';
 testBase = fullfile('/home/lili/datasets/MSRATD500');
 sourceDir = fullfile(testBase, 'gt', CASE, 'txt', TYPE);
+gtDir = fullfile(testBase, 'gt', 'test', 'txt', 'polyTextline');
 imgDir = fullfile(testBase, 'img', CASE);
 destDir = fullfile(destBase, TYPE);
 destFigDir = fullfile(destBase, 'fig', TYPE);
@@ -19,9 +22,9 @@ nFile = numel(files);
 
 for i = 1:nFile
     gtFilesRawName = files(i).name;
-    %         if i < 20
-    %             continue;
-    %         end
+%     if i < 99
+%         continue;
+%     end
     sourceTestFile = fullfile(sourceDir, gtFilesRawName);
     fprintf('%d:%s\n', i, sourceTestFile);
     imgFileName = fullfile(imgDir, [gtFilesRawName(1:end-3), 'jpg']);
@@ -31,7 +34,8 @@ for i = 1:nFile
     % load test box
     [box, tag] = loadGTFromTxtFile(sourceTestFile);
     
-    
+    gtFile = fullfile(gtDir, gtFilesRawName);
+    gtPoly = importdata(gtFile);
     %axis ij
     %     imshow(image);
     %     displayBoxV2(box);
@@ -61,7 +65,7 @@ for i = 1:nFile
     %axis([0, 2500, 0, 2500]);
     %imshow(image);
     % change box to polys
-    polys = [];
+    dtPoly = [];
     if ~isempty(box)
         box(:,3) = box(:,3) - box(:,1);
         box(:,4) = box(:,4) - box(:,2);
@@ -91,21 +95,34 @@ for i = 1:nFile
             
             %displayAngleBox(angleBox, 'm');
         end
-        polys = round(fromAngleBoxToPoly(angleBoxes));
+        dtPoly = round(fromAngleBoxToPoly(angleBoxes));
     end
     
     %saveas(gcf, fullfile(destFigDir, [gtFilesRawName(1:end-3), 'jpg']));
     %show
     if DISPLAY
         imshow(image);
-        displayPoly(polys);
+        displayPoly(dtPoly);
+        displayPoly(gtPoly, 'r');
     end
+    [recall, precision, fscore, evalInfo(i)] = evalDetPoly(dtPoly, gtPoly);
+    fprintf('recall = %.3f, precision = %.3f, f-score = %.3f\n', recall, precision, fscore);
+    
     % write to destTestFile
-    fp = fopen(destTestFile, 'wt');
-    nPoly = size(polys, 1);
-    for j = 1:nPoly
-        fprintf(fp, '%d, %d, %d, %d, %d, %d, %d, %d\n', polys(j,:));
-    end
-    fclose(fp);
+    %     fp = fopen(destTestFile, 'wt');
+    %     nPoly = size(polys, 1);
+    %     for j = 1:nPoly
+    %         fprintf(fp, '%d, %d, %d, %d, %d, %d, %d, %d\n', polys(j,:));
+    %     end
+    %     fclose(fp);
 end
 
+% total
+recall =  sum( [evalInfo.tr] ) / sum( [evalInfo.nG] );
+precision = sum( [evalInfo.tp] ) / sum( [evalInfo.nD] );
+if recall + precision > 0
+    fscore = 2 * recall * precision / (recall + precision);
+else
+    fscore = 0;
+end
+fprintf('\nrecall = %.3f, precision = %.3f, fmeasure = %.3f\n', recall, precision, fscore);
