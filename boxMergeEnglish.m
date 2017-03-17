@@ -22,7 +22,7 @@ params.TYDIF = 5;
 params.TDIS = 300;
 params.TXDIFMIN  = 0.2;
 [word2, multiWord2, singleChar] = mergeWords(singleChar, params);
-%% output and show test
+%% output
 nSingleChar = size(singleChar, 1); 
 word3 = multiWord2;
 boxChinese = [];
@@ -36,36 +36,8 @@ for i = 1:nSingleChar
         boxChinese = [boxChinese; singleChar(i,:)];
     end
 end
-%% =======================merge textline===================
-% params.THeightRatio = 3;%高度比 % = 2.1, 52.6/// = 2.1 use to the textLine method
-% params.TXDIF = 1.3;%水平间距 % =2 , 62.5/// =3 use to the textLine method
-% params.TYDIF = 0.75;%垂直间距
-% wordTemp = [word2.wordbox];
-% nWord = length( wordTemp )/4;
-% textLine = reshape( wordTemp, [ 4, nWord] )';
-% % [~, idx1] = removeContainBox ( textLine );
-% [word, newLine] = mergeTextline ( word2, textLine );
-
-% params.THeightRatio = 4;%高度比 % = 2.1, 52.6/// = 2.1 use to the textLine method
-% params.TXDIF = 1.5;%水平间距 % =2 , 62.5/// =3 use to the textLine method
-% params.TYDIF = 0.3;%垂直间距
-% params.TDIS = 0.5;
-% params.TXDIFMIN  = 0.45;
-% 
-% wordTemp = [word.wordbox];
-% nWord = length( wordTemp )/4;
-% textLine = reshape( wordTemp, [ 4, nWord] )';
-% word2 = mergeWords(textLine, params);
-% nWord = length(word2);
-% for i = 1:nWord
-%     displayBox(word2(i).wordbox, 'b');
-%     displayBox(word2(i).charbox, 'g');
-%     %angleBox = getPolyFromBox(word(i).wordbox, angle);
-% %     displayAngleBox(angleBox, 'm');
-% end
-
-%imshow( image );
-word = [word1, word3];
+word = [word1, word2];
+%% show test
 % nWord = length( word );
 % for i = 1:nWord
 %     [angle, error] = myPolyFit(word(i).charbox);

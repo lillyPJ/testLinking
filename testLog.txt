@@ -1,0 +1,402 @@
+1:IMG_0059.jpg:
+recall = 50.000, precision = 33.333, f-score = 40.000
+2:IMG_0080.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+3:IMG_0103.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+4:IMG_0156.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+5:IMG_0158.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+6:IMG_0172.jpg:
+recall = 83.333, precision = 100.000, f-score = 90.909
+7:IMG_0445.jpg:
+recall = 60.000, precision = 60.000, f-score = 60.000
+8:IMG_0449.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+9:IMG_0461.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+10:IMG_0462.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+11:IMG_0468.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+12:IMG_0475.jpg:
+recall = 85.714, precision = 85.714, f-score = 85.714
+13:IMG_0477.jpg:
+recall = 50.000, precision = 50.000, f-score = 50.000
+14:IMG_0478.jpg:
+recall = 45.455, precision = 50.000, f-score = 47.619
+15:IMG_0482.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+16:IMG_0485.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+17:IMG_0491.jpg:
+recall = 83.333, precision = 83.333, f-score = 83.333
+18:IMG_0505.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+19:IMG_0507.jpg:
+recall = 100.000, precision = 85.714, f-score = 92.308
+20:IMG_0509.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+21:IMG_0513.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+22:IMG_0520.jpg:
+recall = 100.000, precision = 83.333, f-score = 90.909
+23:IMG_0521.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+24:IMG_0545.jpg:
+recall = 66.667, precision = 66.667, f-score = 66.667
+25:IMG_0554.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+26:IMG_0592.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+27:IMG_0599.jpg:
+recall = 70.000, precision = 70.000, f-score = 70.000
+28:IMG_0604.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+29:IMG_0607.jpg:
+recall = 0.000, precision = 0.000, f-score = 0.000
+30:IMG_0610.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+31:IMG_0612.jpg:
+recall = 0.000, precision = 0.000, f-score = 0.000
+32:IMG_0616.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+33:IMG_0625.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+34:IMG_0638.jpg:
+recall = 75.000, precision = 75.000, f-score = 75.000
+35:IMG_0659.jpg:
+recall = 63.636, precision = 70.000, f-score = 66.667
+36:IMG_0666.jpg:
+recall = 0.000, precision = 0.000, f-score = 0.000
+37:IMG_0667.jpg:
+recall = 66.667, precision = 66.667, f-score = 66.667
+38:IMG_0668.jpg:
+recall = 85.714, precision = 85.714, f-score = 85.714
+39:IMG_0670.jpg:
+recall = 33.333, precision = 50.000, f-score = 40.000
+40:IMG_0671.jpg:
+recall = 71.429, precision = 76.923, f-score = 74.074
+41:IMG_0672.jpg:
+recall = 0.000, precision = 0.000, f-score = 0.000
+42:IMG_0675.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+43:IMG_0678.jpg:
+recall = 75.000, precision = 100.000, f-score = 85.714
+44:IMG_0680.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+45:IMG_0698.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+46:IMG_0711.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+47:IMG_0714.jpg:
+recall = 60.000, precision = 75.000, f-score = 66.667
+48:IMG_0716.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+49:IMG_0721.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+50:IMG_0739.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+51:IMG_0742.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+52:IMG_0745.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+53:IMG_0760.jpg:
+recall = 80.000, precision = 88.889, f-score = 84.211
+54:IMG_0763.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+55:IMG_0765.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+56:IMG_0770.jpg:
+recall = 90.909, precision = 83.333, f-score = 86.957
+57:IMG_0779.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+58:IMG_0781.jpg:
+recall = 75.000, precision = 75.000, f-score = 75.000
+59:IMG_0790.jpg:
+recall = 100.000, precision = 77.778, f-score = 87.500
+60:IMG_0793.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+61:IMG_0799.jpg:
+recall = 75.000, precision = 100.000, f-score = 85.714
+62:IMG_0802.jpg:
+recall = 0.000, precision = 0.000, f-score = 0.000
+63:IMG_0803.jpg:
+recall = 0.000, precision = 0.000, f-score = 0.000
+64:IMG_0807.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+65:IMG_0820.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+66:IMG_0829.jpg:
+recall = 100.000, precision = 66.667, f-score = 80.000
+67:IMG_0830.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+68:IMG_0831.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+69:IMG_0833.jpg:
+recall = 0.000, precision = 0.000, f-score = 0.000
+70:IMG_0836.jpg:
+recall = 75.000, precision = 100.000, f-score = 85.714
+71:IMG_0839.jpg:
+recall = 0.000, precision = 0.000, f-score = 0.000
+72:IMG_0844.jpg:
+recall = 20.000, precision = 12.500, f-score = 15.385
+73:IMG_0846.jpg:
+recall = 66.667, precision = 66.667, f-score = 66.667
+74:IMG_0851.jpg:
+recall = 100.000, precision = 50.000, f-score = 66.667
+75:IMG_0866.jpg:
+recall = 0.000, precision = 0.000, f-score = 0.000
+76:IMG_0875.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+77:IMG_0886.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+78:IMG_0887.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+79:IMG_0888.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+80:IMG_0891.jpg:
+recall = 0.000, precision = 0.000, f-score = 0.000
+81:IMG_0898.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+82:IMG_0912.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+83:IMG_1543.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+84:IMG_1546.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+85:IMG_1556.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+86:IMG_1557.jpg:
+recall = 66.667, precision = 50.000, f-score = 57.143
+87:IMG_1563.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+88:IMG_1564.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+89:IMG_1568.jpg:
+recall = 33.333, precision = 50.000, f-score = 40.000
+90:IMG_1578.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+91:IMG_1581.jpg:
+recall = 66.667, precision = 66.667, f-score = 66.667
+92:IMG_1587.jpg:
+recall = 50.000, precision = 50.000, f-score = 50.000
+93:IMG_1598.jpg:
+recall = 80.000, precision = 80.000, f-score = 80.000
+94:IMG_1599.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+95:IMG_1605.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+96:IMG_1607.jpg:
+recall = 75.000, precision = 75.000, f-score = 75.000
+97:IMG_1620.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+98:IMG_1621.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+99:IMG_1626.jpg:
+recall = 50.000, precision = 100.000, f-score = 66.667
+100:IMG_1627.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+101:IMG_1628.jpg:
+recall = 60.000, precision = 60.000, f-score = 60.000
+102:IMG_1646.jpg:
+recall = 33.333, precision = 20.000, f-score = 25.000
+103:IMG_1652.jpg:
+recall = 0.000, precision = 0.000, f-score = 0.000
+104:IMG_1654.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+105:IMG_1657.jpg:
+recall = 33.333, precision = 33.333, f-score = 33.333
+106:IMG_1668.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+107:IMG_1671.jpg:
+recall = 66.667, precision = 66.667, f-score = 66.667
+108:IMG_1674.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+109:IMG_1675.jpg:
+recall = 0.000, precision = 0.000, f-score = 0.000
+110:IMG_1679.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+111:IMG_1689.jpg:
+recall = 33.333, precision = 33.333, f-score = 33.333
+112:IMG_1691.jpg:
+recall = 0.000, precision = 0.000, f-score = 0.000
+113:IMG_1696.jpg:
+recall = 50.000, precision = 33.333, f-score = 40.000
+114:IMG_1699.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+115:IMG_1706.jpg:
+recall = 66.667, precision = 66.667, f-score = 66.667
+116:IMG_1715.jpg:
+recall = 0.000, precision = 0.000, f-score = 0.000
+117:IMG_1718.jpg:
+recall = 0.000, precision = 0.000, f-score = 0.000
+118:IMG_1721.jpg:
+recall = 0.000, precision = 0.000, f-score = 0.000
+119:IMG_1722.jpg:
+recall = 0.000, precision = 0.000, f-score = 0.000
+120:IMG_1726.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+121:IMG_1729.jpg:
+recall = 0.000, precision = 0.000, f-score = 0.000
+122:IMG_1732.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+123:IMG_1749.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+124:IMG_1751.jpg:
+recall = 57.143, precision = 57.143, f-score = 57.143
+125:IMG_1757.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+126:IMG_1764.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+127:IMG_1766.jpg:
+recall = 50.000, precision = 33.333, f-score = 40.000
+128:IMG_1767.jpg:
+recall = 25.000, precision = 20.000, f-score = 22.222
+129:IMG_1772.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+130:IMG_1789.jpg:
+recall = 50.000, precision = 50.000, f-score = 50.000
+131:IMG_1791.jpg:
+recall = 0.000, precision = 0.000, f-score = 0.000
+132:IMG_1800.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+133:IMG_1802.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+134:IMG_1806.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+135:IMG_1811.jpg:
+recall = 100.000, precision = 50.000, f-score = 66.667
+136:IMG_1814.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+137:IMG_1825.jpg:
+recall = 0.000, precision = 0.000, f-score = 0.000
+138:IMG_1836.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+139:IMG_1839.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+140:IMG_1846.jpg:
+recall = 8.333, precision = 9.091, f-score = 8.696
+141:IMG_1864.jpg:
+recall = 50.000, precision = 50.000, f-score = 50.000
+142:IMG_1865.jpg:
+recall = 0.000, precision = 0.000, f-score = 0.000
+143:IMG_1867.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+144:IMG_1869.jpg:
+recall = 50.000, precision = 33.333, f-score = 40.000
+145:IMG_1903.jpg:
+recall = 50.000, precision = 50.000, f-score = 50.000
+146:IMG_1923.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+147:IMG_1926.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+148:IMG_1933.jpg:
+recall = 60.000, precision = 50.000, f-score = 54.545
+149:IMG_1936.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+150:IMG_1937.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+151:IMG_1940.jpg:
+recall = 50.000, precision = 50.000, f-score = 50.000
+152:IMG_1943.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+153:IMG_1952.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+154:IMG_1953.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+155:IMG_1954.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+156:IMG_1964.jpg:
+recall = 50.000, precision = 50.000, f-score = 50.000
+157:IMG_1969.jpg:
+recall = 100.000, precision = 50.000, f-score = 66.667
+158:IMG_1970.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+159:IMG_1972.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+160:IMG_1992.jpg:
+recall = 0.000, precision = 0.000, f-score = 0.000
+161:IMG_1994.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+162:IMG_2002.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+163:IMG_2008.jpg:
+recall = 33.333, precision = 20.000, f-score = 25.000
+164:IMG_2009.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+165:IMG_2010.jpg:
+recall = 0.000, precision = 0.000, f-score = 0.000
+166:IMG_2013.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+167:IMG_2018.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+168:IMG_2025.jpg:
+recall = 50.000, precision = 50.000, f-score = 50.000
+169:IMG_2030.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+170:IMG_2032.jpg:
+recall = 50.000, precision = 25.000, f-score = 33.333
+171:IMG_2033.jpg:
+recall = 0.000, precision = 0.000, f-score = 0.000
+172:IMG_2034.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+173:IMG_2035.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+174:IMG_2041.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+175:IMG_2044.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+176:IMG_2047.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+177:IMG_2061.jpg:
+recall = 0.000, precision = 0.000, f-score = 0.000
+178:IMG_2069.jpg:
+recall = 50.000, precision = 50.000, f-score = 50.000
+179:IMG_2074.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+180:IMG_2076.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+181:IMG_2082.jpg:
+recall = 50.000, precision = 50.000, f-score = 50.000
+182:IMG_2090.jpg:
+recall = 25.000, precision = 33.333, f-score = 28.571
+183:IMG_2095.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+184:IMG_2096.jpg:
+recall = 0.000, precision = 0.000, f-score = 0.000
+185:IMG_2099.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+186:IMG_2102.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+187:IMG_2106.jpg:
+recall = 0.000, precision = 0.000, f-score = 0.000
+188:IMG_2115.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+189:IMG_2120.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+190:IMG_2125.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+191:IMG_2126.jpg:
+recall = 50.000, precision = 50.000, f-score = 50.000
+192:IMG_2166.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+193:IMG_2177.jpg:
+recall = 100.000, precision = 50.000, f-score = 66.667
+194:IMG_2181.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+195:IMG_2183.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+196:IMG_2215.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+197:IMG_2218.jpg:
+recall = 66.667, precision = 66.667, f-score = 66.667
+198:IMG_2220.jpg:
+recall = 0.000, precision = 0.000, f-score = 0.000
+199:IMG_2221.jpg:
+recall = 25.000, precision = 50.000, f-score = 33.333
+200:IMG_2257.jpg:
+recall = 100.000, precision = 100.000, f-score = 100.000
+
+recall = 0.744, precision = 0.725, fmeasure = 0.735
