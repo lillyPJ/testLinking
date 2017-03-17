@@ -93,11 +93,13 @@ nWordOut = length( newSG );
 for i =1: nWordOut
     idx = newSG{i};
     charBoxes = vertcat(wordOutSort(idx).charbox);
+    wordOut(i).nChar = size(charBoxes, 1);
     wordOut(i).charbox = charBoxes;
     wordOut(i).wordbox = mmbox(boxes(idx, :)); 
     wordOut(i).meanW = mean(charBoxes(:, 3));
     wordOut(i).meanH = mean(charBoxes(:, 4)); 
     wordOut(i).flag = 2; % multi
+    wordOut(i).angle = 0;
 end
 % word of single char
 if nWordOut > 0
@@ -111,11 +113,13 @@ nSingle =  length(idxSingleChar);
 k = nWordOut +1;
 for i = 1:nSingle
     charBoxes = vertcat(wordOutSort(idxSingleChar(i)).charbox);
+    wordOut(k).nChar = size(charBoxes, 1);
     wordOut(k).charbox = charBoxes;
     wordOut(k).wordbox = boxes(idxSingleChar(i), :);
     wordOut(k).meanW = mean(charBoxes(:, 3));
     wordOut(k).meanH = mean(charBoxes(:, 4));  
     wordOut(k).flag = 1; % single
+    wordOut(k).angle = 0;
     k = k +1;
 end
 % displayWordBox(wordOut);

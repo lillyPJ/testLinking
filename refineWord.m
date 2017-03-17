@@ -11,6 +11,7 @@ for i = 1:nWord
 %     displayBox(words(i).wordbox, 'b');
     [angle, error] = myPolyFit(words(i).charbox);
     if error < 0.2 % error threshold
+        words(i).angle = angle;
         newWords = [newWords, words(i)];
     else
         % one "words" has one more than one textline

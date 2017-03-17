@@ -1,31 +1,38 @@
-function wordOut = boxMergeAllHorizontal3(wordIn)
+function wordOut = boxMergeLast3(wordIn)
 
 % check input
+nWordIn = length(wordIn);
 wordOut = [];
-if length(wordIn) < 1
+if nWordIn < 1
     return;
 end
 
-%%
 DEBUG = 0;
-TH_ANGLE = 8/180*pi;
-TH_DISX_W = 1.5;
+%
+TH_DISX_W = 0.8;
 TH_DISY = 0.8;
-%% refinement : get angle for each word
-
-wordIn = refineWord(wordIn);
-nWordIn = length(wordIn);
+%TH_MAXAR = 1.8;
+TH_H = 5; %1.5
+TH_INV_DISX = 0.35;
+TH_SH = 0.7;
+TH_WH = 1.1; %0.9
 %% sort
 [wordOutSort, wordBoxSort] = sortWords(wordIn);
+%% precomputing
 boxes = wordBoxSort(:, 1:4);
 nbox = nWordIn;
 xCenter = floor(boxes(:, 1) + boxes(:, 3) / 2); %xCenter
 yCenter = floor(boxes(:, 2) + boxes(:, 4) / 2); %yCenter
-angles = [wordOutSort.angle];
+wh = boxes(:, 3) ./ boxes(:, 4); % wh = w/h
+hw = 1./wh; % hw = h/w
+s = boxes(:, 3) .* boxes(:, 4); % s = w*h
+maxAR = max(wh, hw); % maxAR = max(wh, hw)
+meanCharW = [wordOutSort.meanW];
+meanCharH = [wordOutSort.meanH];
+flag = [wordOutSort.flag];
 for i = 1:nbox
     char(i) = struct('left',[],'right',[]);
 end
-%
 if DEBUG
     boxes(:, 5) = 1:nbox;
     displayBox(boxes, 'g', 'u', 5);
@@ -43,19 +50,37 @@ for i = 1:nWordIn
         minW = min(boxes(i, 3), boxes(j, 3));
         minH = min(boxes(i, 4), boxes(j, 4));
         maxH = max(boxes(i, 4), boxes(j, 4));
-        angleCenter = atan((yCenter(j) - yCenter(i))/(xCenter(j) - xCenter(i)));
-        angleDiff = min(abs(angleCenter - angles(i)), abs(angleCenter - angles(j)));
         disX_W = abs(abs(xCenter(i) - xCenter(j)) - meanW) / minH;
+        disX = abs(abs(xCenter(i) - xCenter(j))) / meanW;
         disY = abs(yCenter(i) - yCenter(j)) /maxH;
-        if angleDiff < TH_ANGLE && ...
-                disX_W < TH_DISX_W && ...
-                disY < TH_DISY
+        wRatio = max(boxes(i, 3)/boxes(j, 3), boxes(j, 3)/boxes(i, 3));
+        hRatio = max(boxes(i, 4)/boxes(j, 4), boxes(j, 4)/boxes(i, 4));
+        sRatio = max(s(i)/s(j), s(j)/s(i));
+        charW = max(meanCharW(i)/meanCharW(j), meanCharW(j)/meanCharW(i));
+        charH = max(meanCharH(i)/meanCharH(j), meanCharH(j)/meanCharH(i));
+        BIASMALL = 1;
+        if hRatio > 2.5 && disY < 0.5
+            BIASMALL = 0;
+        end 
+        SAMECHARSIZE = 1;
+        if flag(i) + flag(j) > 2 && charW > 2 && charH > 2
+            SAMECHARSIZE = 0;
+        end
+        if disX_W < TH_DISX_W && ...
+                disY < TH_DISY && ...
+                hRatio < TH_H && ...
+                disX > TH_INV_DISX && ...% no vertical
+                BIASMALL && SAMECHARSIZE && ...
+                wh(i) > TH_WH && wh(j) > TH_WH % not single char
+                %sRatio/hRatio/hRatio > TH_SH
+                
             if boxes(i, 1) <= boxes(j, 1)
                 char(i).right = [char(i).right, j];
                 char(j).left = [char(j).left, i];
             else
                 char(i).left = [char(i).left, j];
-                char(j).right = [char(j).right, i];     
+                char(j).right = [char(j).right, i];
+                
             end
         end
     end
@@ -85,7 +110,7 @@ for i =1: nWordOut
     wordOut(i).wordbox = mmbox(boxes(idx, :));
     wordOut(i).meanW = mean(charBoxes(:, 3));
     wordOut(i).meanH = mean(charBoxes(:, 4)); 
-    wordOut(i).flag = 32;    
+    wordOut(i).flag = 22;    
     wordOut(i).angle = 0;
 end
 % word of single char
@@ -105,14 +130,15 @@ for i = 1:nSingle
     wordOut(k).wordbox = boxes(idxSingleChar(i), :);
     wordOut(k).meanW = mean(charBoxes(:, 3));
     wordOut(k).meanH = mean(charBoxes(:, 4));  
-    wordOut(k).flag = 31;  
+    wordOut(k).flag = 21;  
     wordOut(k).angle = 0;
     k = k +1;
 end
-
 %% display
-%newWords = refineWord(wordOut);
+% newWords = refineWord(wordOut);
 % displayWordBox(wordOut);
-% displayWordPoly(wordOut, 'm');
+% displayWordPoly(newWords, 'm');
 % %displayWordBox(wordOut);
-%disp('ok');
+% disp('ok');
+
+end

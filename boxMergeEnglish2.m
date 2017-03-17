@@ -15,7 +15,7 @@ TH_DISY = 0.8;
 TH_H = 5; %1.5
 TH_INV_DISX = 0.35;
 TH_SH = 0.7;
-TH_WH = 0.9;
+TH_WH = 1.1; %0.9
 %% sort
 [wordOutSort, wordBoxSort] = sortWords(wordIn);
 %% precomputing
@@ -105,11 +105,13 @@ nWordOut = length( newSG );
 for i =1: nWordOut
     idx = newSG{i};
     charBoxes = vertcat(wordOutSort(idx).charbox);
+    wordOut(i).nChar = size(charBoxes, 1);
     wordOut(i).charbox = charBoxes;
     wordOut(i).wordbox = mmbox(boxes(idx, :));
     wordOut(i).meanW = mean(charBoxes(:, 3));
     wordOut(i).meanH = mean(charBoxes(:, 4)); 
     wordOut(i).flag = 22;    
+    wordOut(i).angle = 0;
 end
 % word of single char
 if nWordOut > 0
@@ -123,18 +125,20 @@ nSingle =  length(idxSingleChar);
 k = nWordOut +1;
 for i = 1:nSingle
     charBoxes = vertcat(wordOutSort(idxSingleChar(i)).charbox);
+    wordOut(k).nChar = size(charBoxes, 1);
     wordOut(k).charbox = charBoxes;
     wordOut(k).wordbox = boxes(idxSingleChar(i), :);
     wordOut(k).meanW = mean(charBoxes(:, 3));
     wordOut(k).meanH = mean(charBoxes(:, 4));  
-    wordOut(i).flag = 21;  
+    wordOut(k).flag = 21;  
+    wordOut(k).angle = 0;
     k = k +1;
 end
 %% display
-newWords = refineWord(wordOut);
-%displayWordBox(wordOut);
-displayWordPoly(newWords);
-%displayWordBox(wordOut);
-disp('ok');
+% newWords = refineWord(wordOut);
+% displayWordBox(wordOut);
+% displayWordPoly(newWords, 'm');
+% %displayWordBox(wordOut);
+% disp('ok');
 
 end

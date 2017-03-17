@@ -1,11 +1,8 @@
-function displayWordPoly(word, charColor, wordColor)
+function displayWordPoly(word, wordColor)
 
 assert(nargin > 0);
-if nargin < 3
-    wordColor = 'b';
-end
 if nargin < 2
-    charColor = 'g';
+    wordColor = 'b';
 end
 % check input
 nWord = length(word);
@@ -17,6 +14,6 @@ end
 for i = 1:nWord
     angle = myPolyFit(word(i).charbox);
     angleBox = getPolyFromBox(word(i).wordbox, angle);
-    displayAngleBox(angleBox);
+    displayAngleBox(angleBox, wordColor);
 end
 end

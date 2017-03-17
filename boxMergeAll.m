@@ -11,14 +11,23 @@ word = fromSingleBoxToWord(box);
 word = boxMergeChinese1(word);
 %% MergeEnglish2
 word = boxMergeEnglish2(word);
-%% mergeAllHorizontal3
-word = boxMergeAllHorizontal3(word);
-%% mergeAllVertical4
-word = boxMergeAllVertical4(word);
-%% refine word
-word = refineWord(word);
-%% output
 
+%% MergeLast3
+%word = boxMergeLast3(word);
+
+%% MergeSingleChar3
+[word, wordSingle, wordMulti] = boxMergeSingle3(word);
+%% mergeAllHorizontal3
+% wordMulti = boxMergeAllHorizontal3(wordMulti);
+% word = [wordSingle, wordMulti];
+word = boxMergeAllHorizontal3(word); %!!!!!!!!!!!
+%% mergeAllVertical4
+%word = boxMergeAllVertical4(word);
+%% refine word
+%word = refineWord(word);
+%% output
+% displayWordBox(word);
+% displayWordPoly(word, 'm');
 end
 
 

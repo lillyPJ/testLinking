@@ -15,8 +15,9 @@ end
     
 
 % extract wordIn.wordbox, sort according to x
-wordTemp = [wordIn.wordbox];
-wordBox = reshape( wordTemp, [ 4, nWord] )';
+%wordTemp = [wordIn.wordbox];
+%wordBox = reshape( wordTemp, [ 4, nWord] )';
+wordBox = vertcat(wordIn.wordbox);
 [wordBox, index] = sortrows(wordBox);
 
 wordOutTemp = wordOut(index);

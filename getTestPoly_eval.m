@@ -22,9 +22,9 @@ nFile = numel(files);
 
 for i = 1:nFile
     gtFilesRawName = files(i).name;
-%     if i < 53
-%         continue;
-%     end
+    if i < 1
+        continue;
+    end
     sourceTestFile = fullfile(sourceDir, gtFilesRawName);
     fprintf('%d:%s\n', i, sourceTestFile);
     imgFileName = fullfile(imgDir, [gtFilesRawName(1:end-3), 'jpg']);
@@ -54,7 +54,7 @@ for i = 1:nFile
 %         wordChinese =  boxMergeChinese(boxChinese);
 %         word = [wordEnglish, wordChinese];
 %        
-        imshow(image);
+        %imshow(image);
         % mergeAll
         word = boxMergeAll(box);
         
