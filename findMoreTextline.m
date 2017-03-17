@@ -12,8 +12,8 @@ if nBox < 3 % 1~2
     newWords.wordbox = box;
     return;
 end
-%box(:, 5) = 1:nBox;
-%displayBox(box, 'g', 'm', 5);
+% box(:, 5) = 1:nBox;
+% displayBox(box, 'g', 'm', 5);
 %% calculate the angleMatrix
 xCenter = box(:, 1) + box(:, 3)/2;
 yCenter = box(:, 2) + box(:, 4)/2;
@@ -29,7 +29,8 @@ while(nBox > 2)
     %% analys the angleHist
     amin = min(min(angleMatrix)) - 0.5;
     amax = max(max(angleMatrix)) + 0.5;
-    step = 1/nBox;
+    step = 1.1/nBox;
+    %step = 0.15;
     range = amin:step:amax;
     nBin = [];
     binIdx = [];
@@ -46,25 +47,37 @@ while(nBox > 2)
     %% find one group with the highest maxBin
     [maxCenterIdx, maxBinIdx] = max(nBin, [], 2);
     [maxN, maxIdx] = max(maxCenterIdx);
-    allBinIdx = [maxIdx, find(binIdx(maxIdx,:)== maxBinIdx(maxIdx))];
-    if maxN < 2 % box less than three
-        data = leftDownMatrix(angleMatrix);
-        [sumNB, sumBin] = histc(data, range);
-        [maxN, maxIdx] = max(sumNB);
-        allBinIdx = find(sumBin == maxIdx);
-        % more than two
-        % (find the most possible pattern)--repeated
-        allBinIdx = allBinIdx(1); % select the first one
-        idxX = round(sqrt(allBinIdx * 2));
-        idxY = allBinIdx - idxX * (idxX - 1) / 2; % K = i*(i-1)/2 + j
-        idxX = idxX + 1;
-        allBinIdx = [idxX, idxY];
-        
+    if maxN == mean(maxCenterIdx)
+        % each group has the same number of box
+        % find the one with the smallest variance
+        vars = zeros(nBox, 1);
+        for i = 1:nBox
+            allBinIdx = [i, find(binIdx(i,:)== maxBinIdx(i))];
+            vars(i) = var(angleMatrix(i, allBinIdx));
+        end
+        [~, maxIdx] = min(vars);
     end
+    allBinIdx = [maxIdx, find(binIdx(maxIdx,:)== maxBinIdx(maxIdx))];
+%     if maxN < 2 % box less than three
+%         data = leftDownMatrix(angleMatrix);
+%         [sumNB, sumBin] = histc(data, range);
+%         [maxN, maxIdx] = max(sumNB);
+%         allBinIdx = find(sumBin == maxIdx);
+%         % more than two
+%         % (find the most possible pattern)--repeated
+%         allBinIdx = allBinIdx(1); % select the first one
+%         idxX = round(sqrt(allBinIdx * 2));
+%         idxY = allBinIdx - idxX * (idxX - 1) / 2; % K = i*(i-1)/2 + j
+%         idxX = idxX + 1;
+%         allBinIdx = [idxX, idxY];
+%         
+%     end
     nIdx = length(allBinIdx);
-    tempWord.nChar = nIdx;
     tempWord.charbox = box(allBinIdx, :);
     tempWord.wordbox = mmbox(box(allBinIdx, :));
+    tempWord.meanW = mean(box(allBinIdx, 3));
+    tempWord.meanH = mean(box(allBinIdx, 4));
+    tempWord.flag = 24; %multi
     newWords = [newWords, tempWord];
     %% delete the vertex in the group and update the angleMatrix
     box(allBinIdx, :) = [];
@@ -76,8 +89,10 @@ while(nBox > 2)
 end
 % nBox ~[1, 2]
 if nBox > 0
-    tempWord.nChar = nBox;
     tempWord.charbox = box;
     tempWord.wordbox = mmbox(box);
+    tempWord.meanW = mean(box(:, 3));
+    tempWord.meanH = mean(box(:, 4));
+    tempWord.flag = 23; %single
     newWords = [newWords, tempWord];
 end

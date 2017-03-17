@@ -6,15 +6,18 @@ wordOut = wordIn;
 if nWordIn < 1
     return;
 end
-
-TH_DISX = 0.8;
+%
+DEBUG = 0;
+%
+TH_DISX_W = 0.75; %0.75
 TH_DISY = 0.75;
 %TH_MAXAR = 1.8;
 TH_WH_V = 1.6;
 TH_HW_V = 2.2;
-TH_H = 1.5;
-TH_W = 1.5;
-
+TH_H = 1.5; %1.5
+TH_W = 1.5; %1.5
+TH_S = 2;
+TH_INV_DISX = 0.5;
 %% sort
 [wordOutSort, wordBoxSort] = sortWords(wordIn);
 %% precomputing
@@ -24,29 +27,41 @@ xCenter = floor(boxes(:, 1) + boxes(:, 3) / 2); %xCenter
 yCenter = floor(boxes(:, 2) + boxes(:, 4) / 2); %yCenter
 wh = boxes(:, 3) ./ boxes(:, 4); % wh = w/h
 hw = 1./wh; % hw = h/w
-s = boxes(:, 3) .* boxes(:, 3); % s = w*h
+s = boxes(:, 3) .* boxes(:, 3); % s = w*h!!!!!3 ->4
+%s = (boxes(:, 3) .* boxes(:, 3) + boxes(:, 4) .* boxes(:, 4))./2; % s = w*h
 maxAR = max(wh, hw); % maxAR = max(wh, hw)
 for i = 1:nbox
     char(i) = struct('left',[],'right',[]);
 end
-% boxes(:, 5) = 1:nbox;
-% displayBox(boxes, 'g', 'u', 5);
+if DEBUG
+    boxes(:, 5) = 1:nbox;
+    displayBox(boxes, 'g', 'u', 5);
+end
 %% group left child and right child
 for i = 1:nWordIn
-    %displayBox(boxes(i, :), 'b');
+    if DEBUG
+        displayBox(boxes(i, :), 'b');
+    end
     for j = i+1:nWordIn
-        %displayBox(boxes(j, :), 'y');
-        meanW = mean(boxes(i, 3), boxes(j, 3));
+        if DEBUG
+            displayBox(boxes(j, :), 'y');
+        end
+        meanW = mean([boxes(i, 3), boxes(j, 3)]);
         miniH = min(boxes(i, 4), boxes(j, 4));
-        disX = abs(abs(xCenter(i) - xCenter(j)) - meanW) / miniH;
+        disX_W = abs(abs(xCenter(i) - xCenter(j)) - meanW) / miniH;
+       
         disY = abs(yCenter(i) - yCenter(j)) /miniH;
-        hRatio = max(boxes(i, 3)/boxes(j, 3), boxes(j, 3)/boxes(i, 3));
-        wRatio = max(boxes(i, 4)/boxes(j, 4), boxes(j, 4)/boxes(i, 4));
-        if disX < TH_DISX && disY < TH_DISY && ...
+        wRatio = max(boxes(i, 3)/boxes(j, 3), boxes(j, 3)/boxes(i, 3));
+        hRatio = max(boxes(i, 4)/boxes(j, 4), boxes(j, 4)/boxes(i, 4));
+        sRatio = max(s(i)/s(j), s(j)/s(i));
+        if disX_W < TH_DISX_W && ...
+                disY < TH_DISY && ...
                 wh(i) < TH_WH_V && wh(j) < TH_WH_V && ...
                 hw(i) < TH_HW_V && hw(j) < TH_HW_V && ...
-                hRatio < TH_H && wRatio < TH_W
-            
+                hRatio < TH_H && ...
+                wRatio < TH_W && ...
+                sRatio < TH_S 
+                
             if boxes(i, 1) <= boxes(j, 1)
                 char(i).right = [char(i).right, j];
                 char(j).left = [char(j).left, i];
@@ -77,10 +92,12 @@ wordOut = [];
 nWordOut = length( newSG );
 for i =1: nWordOut
     idx = newSG{i};
-    charTemp = [wordOutSort(idx).charbox];
-    charBoxes = reshape(charTemp, [4, length(charTemp) / 4])';
+    charBoxes = vertcat(wordOutSort(idx).charbox);
     wordOut(i).charbox = charBoxes;
     wordOut(i).wordbox = mmbox(boxes(idx, :)); 
+    wordOut(i).meanW = mean(charBoxes(:, 3));
+    wordOut(i).meanH = mean(charBoxes(:, 4)); 
+    wordOut(i).flag = 2; % multi
 end
 % word of single char
 if nWordOut > 0
@@ -93,13 +110,15 @@ idxSingleChar = setdiff(idxAll, idxWordChar);
 nSingle =  length(idxSingleChar);
 k = nWordOut +1;
 for i = 1:nSingle
-    charTemp = [wordOutSort(idxSingleChar(i)).charbox];
-    charBoxes = reshape(charTemp, [4, length(charTemp) / 4])';
+    charBoxes = vertcat(wordOutSort(idxSingleChar(i)).charbox);
     wordOut(k).charbox = charBoxes;
     wordOut(k).wordbox = boxes(idxSingleChar(i), :);
+    wordOut(k).meanW = mean(charBoxes(:, 3));
+    wordOut(k).meanH = mean(charBoxes(:, 4));  
+    wordOut(k).flag = 1; % single
     k = k +1;
 end
-displayWordBox(wordOut);
-disp('ok');
+% displayWordBox(wordOut);
+% disp('ok');
 end
 

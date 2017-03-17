@@ -10,4 +10,7 @@ end
 for i = 1:nBox
     word(i).charbox = box(i, :);
     word(i).wordbox = box(i, :);
+    word(i).meanW = box(i, 3);
+    word(i).meanH = box(i, 4);
+    word(i).flag  = 1;
 end

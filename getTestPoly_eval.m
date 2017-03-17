@@ -22,9 +22,9 @@ nFile = numel(files);
 
 for i = 1:nFile
     gtFilesRawName = files(i).name;
-    if i < 53
-        continue;
-    end
+%     if i < 53
+%         continue;
+%     end
     sourceTestFile = fullfile(sourceDir, gtFilesRawName);
     fprintf('%d:%s\n', i, sourceTestFile);
     imgFileName = fullfile(imgDir, [gtFilesRawName(1:end-3), 'jpg']);
