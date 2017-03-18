@@ -13,7 +13,7 @@ TH_DISX_W = 0.75; %0.75
 TH_DISY = 0.75;
 %TH_MAXAR = 1.8;
 TH_WH_V = 1.6;
-TH_HW_V = 2.2;
+TH_HW_V = 2.2; %2.2
 TH_H = 1.5; %1.5
 TH_W = 1.5; %1.5
 TH_S = 2;
@@ -57,7 +57,7 @@ for i = 1:nWordIn
         if disX_W < TH_DISX_W && ...
                 disY < TH_DISY && ...
                 wh(i) < TH_WH_V && wh(j) < TH_WH_V && ...
-                hw(i) < TH_HW_V && hw(j) < TH_HW_V && ...
+                hw(i) < TH_HW_V && hw(j) < TH_HW_V &&...
                 hRatio < TH_H && ...
                 wRatio < TH_W && ...
                 sRatio < TH_S 
@@ -122,7 +122,7 @@ for i = 1:nSingle
     wordOut(k).angle = 0;
     k = k +1;
 end
-% displayWordBox(wordOut);
+%displayWordBox(wordOut);
 % disp('ok');
 end
 

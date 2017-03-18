@@ -9,13 +9,13 @@ end
 
 DEBUG = 0;
 
-TH_DISX_W = 0.8;
-TH_DISY = 0.8;
+TH_DISX_W = 0.8; %0.8
+TH_DISY = 0.8; % 0.8
 %TH_MAXAR = 1.8;
 TH_H = 5; %1.5
 TH_INV_DISX = 0.35;
 TH_SH = 0.7;
-TH_WH = 1.1; %0.9
+TH_HW = 2; %1.4
 %% sort
 [wordOutSort, wordBoxSort] = sortWords(wordIn);
 %% precomputing
@@ -63,7 +63,7 @@ for i = 1:nWordIn
             BIASMALL = 0;
         end 
         SAMECHARSIZE = 1;
-        if flag(i) + flag(j) > 2 && charW > 2 && charH > 2
+        if flag(i) + flag(j) > 2 && charW > 1.5 && charH > 1.8
             SAMECHARSIZE = 0;
         end
         if disX_W < TH_DISX_W && ...
@@ -71,7 +71,7 @@ for i = 1:nWordIn
                 hRatio < TH_H && ...
                 disX > TH_INV_DISX && ...% no vertical
                 BIASMALL && SAMECHARSIZE && ...
-                wh(i) > TH_WH && wh(j) > TH_WH % not single char
+                hw(i) < TH_HW && hw(j) < TH_HW % not single char
                 %sRatio/hRatio/hRatio > TH_SH
                 
             if boxes(i, 1) <= boxes(j, 1)
@@ -135,9 +135,9 @@ for i = 1:nSingle
     k = k +1;
 end
 %% display
-% newWords = refineWord(wordOut);
-% displayWordBox(wordOut);
-% displayWordPoly(newWords, 'm');
+%newWords = refineWord(wordOut);
+%displayWordBox(wordOut);
+%displayWordPoly(newWords, 'm');
 % %displayWordBox(wordOut);
 % disp('ok');
 

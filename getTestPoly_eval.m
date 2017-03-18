@@ -2,7 +2,7 @@
 % test_bb: x, y, w, h
 % test_poly: x1, y1, x2, y2, x3, y3, x4, y4
 clear all
-DISPLAY = 0;
+DISPLAY = 1;
 addpath('/home/lili/codes/evaluationPoly');
 %% dir and files
 TYPE = 'boxWord';
@@ -22,7 +22,7 @@ nFile = numel(files);
 
 for i = 1:nFile
     gtFilesRawName = files(i).name;
-    if i < 1
+    if i < 0
         continue;
     end
     sourceTestFile = fullfile(sourceDir, gtFilesRawName);

@@ -32,13 +32,25 @@ for i = 1:nBox
     end
 end
 while(nBox > 2)
+
     %% analys the angleHist
-    amin = min(min(angleMatrix));
-    amax = max(max(angleMatrix));
+    allData = angleMatrix(:);
+    idx = (allData < 6)&(allData >- 6)&(allData~=0);
+    allData = allData(idx);
+    if isempty(allData)
+        break;
+    end
+    amin = min(min(allData));
+    amax = max(max(allData));
+    if abs(amax - amin) < 0.05
+        break;
+    end
     amin = amin - (amax - amin)/30;
     amax = amax + (amax - amin)/30;
-    step = 1.1/nBox;
+    step = max(0.08, (amax - amin) /nBox/4);
+    %step = 0.01;
     %step = 0.15;
+    
     if step > (amax - amin)
         step = (amax - amin)/5;
     end
@@ -47,8 +59,10 @@ while(nBox > 2)
     binIdx = [];
     
     for i = 1:nBox
+        % calculate range
         histData = angleMatrix(i,:);
         histData(i) = [];
+        % analysis
         [nb, bin] = histc(histData, range);
         nBin = [nBin; nb];
         newBin = [bin(1:i-1), -1, bin(i:nBox-1)];
@@ -60,15 +74,18 @@ while(nBox > 2)
     [maxN, maxIdx] = max(maxCenterIdx);
     if maxN == mean(maxCenterIdx)
         % each group has the same number of box
-        % find the one with the smallest variance
-        vars = zeros(nBox, 1);
-        for i = 1:nBox
-            allBinIdx = [i, find(binIdx(i,:)== maxBinIdx(i))];
-            vars(i) = var(angleMatrix(i, allBinIdx));
-        end
-        [~, maxIdx] = min(vars);
+        % find the two has the smallest distance (center)
+%         vars = zeros(nBox, 1);
+%         for i = 1:nBox
+%             allBinIdx = [i, find(binIdx(i,:)== maxBinIdx(i))];
+%             vars(i) = var(angleMatrix(i, allBinIdx));
+%         end
+%         [~, maxIdx] = min(vars);
+        minDisIdx = findClosestPair(box);
+        allBinIdx = minDisIdx;
+    else
+        allBinIdx = [maxIdx, find(binIdx(maxIdx,:)== maxBinIdx(maxIdx))];
     end
-    allBinIdx = [maxIdx, find(binIdx(maxIdx,:)== maxBinIdx(maxIdx))];
     %     if maxN < 2 % box less than three
     %         data = leftDownMatrix(angleMatrix);
     %         [sumNB, sumBin] = histc(data, range);

@@ -14,6 +14,9 @@ TH_DISY = 0.8;
 %% refinement : get angle for each word
 
 wordIn = refineWord(wordIn);
+if length(wordIn) < 1
+    return;
+end
 nWordIn = length(wordIn);
 %% sort
 [wordOutSort, wordBoxSort] = sortWords(wordIn);

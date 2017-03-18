@@ -70,7 +70,7 @@ for i = 1:nBox
             flag = 1;
         end
         % 2. horizontal, Chinese char
-        if disX_W / minW< 4 && disY < 0.6 && ...
+        if disX_W / minW< 4 && disY < 0.3 && ...
                 hw(i) < 1.8 && hw(j) < 1.8 && wh(i) < 1.3 && wh(j) < 1.3 &&...
                 hRatio < 1.2
             flag = 1;
@@ -148,7 +148,7 @@ wordSingle = wordOut;
 wordOut = [wordSingle, wordMulti];
 %% display
 % newWords = refineWord(wordOut);
-% displayWordBox(wordOut);
+%displayWordBox(wordOut);
 % displayWordPoly(newWords, 'm');
 % %displayWordBox(wordOut);
 % disp('ok');
