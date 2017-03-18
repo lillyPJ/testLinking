@@ -32,6 +32,9 @@ word = boxMergeEnglish2(word);
 %word = boxMergeAllVertical4(word);
 %% refine word
 word = refineWord(word);
+
+
+
 %% output
 %displayWordBox(word);
 %displayWordPoly(word, 'm');

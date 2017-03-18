@@ -3,6 +3,8 @@
 % test_poly: x1, y1, x2, y2, x3, y3, x4, y4
 clear all
 DISPLAY = 0;
+MULTI = 1; %1-multi, 0-single
+
 addpath('/home/lili/codes/evaluationPoly');
 %% dir and files
 TYPE = 'boxWord';
@@ -10,6 +12,7 @@ CASE = 'test';
 destBase = '.';
 testBase = fullfile('/home/lili/datasets/MSRATD500');
 sourceDir = fullfile(testBase, 'gt', CASE, 'txt', TYPE);
+sourceDir = '/home/lili/codes/ssd/caffe-ssd/data/MSRAEngChi/test_bb/';
 gtDir = fullfile(testBase, 'gt', 'test', 'txt', 'polyTextline');
 imgDir = fullfile(testBase, 'img', CASE);
 destDir = fullfile(destBase, TYPE);
@@ -26,34 +29,42 @@ for i = 1:nFile
         continue;
     end
     sourceTestFile = fullfile(sourceDir, gtFilesRawName);
+    gtFilesRawName = gtFilesRawName(5:end);
     fprintf('%d:%s\n', i, sourceTestFile);
     imgFileName = fullfile(imgDir, [gtFilesRawName(1:end-3), 'jpg']);
     image = imread(imgFileName);
     
     destTestFile = fullfile(destDir, ['res_', gtFilesRawName]);
     % load test box
-    [box, tag] = loadGTFromTxtFile(sourceTestFile); 
+    %[box, tag] = loadGTFromTxtFile(sourceTestFile);
+    box = importdata(sourceTestFile);
     gtFile = fullfile(gtDir, gtFilesRawName);
     gtPoly = importdata(gtFile);
     [imgH, imgW, D] = size(image);
     %axis([0, imgW, 0, imgH]);
-
+    
     dtPoly = [];
     if ~isempty(box)
         box(:,3) = box(:,3) - box(:,1);
         box(:,4) = box(:,4) - box(:,2);
         
+        if MULTI
+            %dtBox = myNms2(dtBox, 1.6, 0.7, 0.35); % 5 d
+            box = myNms2(box, 1.3, 0.7, 0.5);
+        else
+            box = myNms(box, 0.25);
+        end
         %charWords = boxMerge(box, image);
-%         tagChar = cell2mat(tag);
-%         idxEnglish = (tagChar == '1');
-%         idxChinese = (tagChar == '2');
-%         boxEnglish = box(idxEnglish, :);
-%         boxChinese = box(idxChinese, :);
-%         [wordEnglish, boxCh] =  boxMergeEnglish(boxEnglish);
-%         boxChinese = [boxChinese; boxCh];
-%         wordChinese =  boxMergeChinese(boxChinese);
-%         word = [wordEnglish, wordChinese];
-%        
+        %         tagChar = cell2mat(tag);
+        %         idxEnglish = (tagChar == '1');
+        %         idxChinese = (tagChar == '2');
+        %         boxEnglish = box(idxEnglish, :);
+        %         boxChinese = box(idxChinese, :);
+        %         [wordEnglish, boxCh] =  boxMergeEnglish(boxEnglish);
+        %         boxChinese = [boxChinese; boxCh];
+        %         wordChinese =  boxMergeChinese(boxChinese);
+        %         word = [wordEnglish, wordChinese];
+        %
         %imshow(image);
         % mergeAll
         word = boxMergeAll(box);
